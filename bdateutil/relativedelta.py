@@ -21,7 +21,7 @@ from bdateutil.parser import parse
 
 
 class relativedelta(rd):
-
+    WEEKDAYS = (5, 6)
     def __init__(self, dt1=None, dt2=None, bdays=None, holidays=None,
                  bhours=None, bminutes=None, bseconds=None,
                  btstart=None, btend=None, *args, **kwargs):
@@ -52,7 +52,7 @@ class relativedelta(rd):
             c = defaultdict(int)
             d1 = max(dt1, dt2)
             d2 = min(dt1, dt2)
-            if d1.weekday() in (5, 6) or d1 in self.holidays:
+            if d1.weekday() in self.WEEKDAYS or d1 in self.holidays:
                 c['bdays'] += 1
             for attr in ('bhours', 'bminutes', 'bseconds'):
                 while getattr(d1, attr[1:-1]) != getattr(d2, attr[1:-1]):
@@ -61,7 +61,7 @@ class relativedelta(rd):
                         c[attr] += 1
             while d1 > d2:
                 d2 += rd(days=+1)
-                if d2.weekday() not in (5, 6) and d2 not in self.holidays:
+                if d2.weekday() not in self.WEEKDAYS and d2 not in self.holidays:
                     c['bdays'] += 1
             self.bdays = c['bdays']
             self.bhours = c['bhours']
@@ -123,7 +123,7 @@ class relativedelta(rd):
             ret = datetime.combine(ret, datetime.min.time())
         for attr in ('bseconds', 'bminutes', 'bhours', 'bdays'):
             if getattr(self, attr, None) is not None:
-                while ret.weekday() in (5, 6) or ret in self.holidays:
+                while ret.weekday() in self.WEEKDAYS or ret in self.holidays:
                     ret += rd(days=+1)
                 while attr != "bdays" and \
                         (ret.time() < self.btstart or
@@ -133,7 +133,7 @@ class relativedelta(rd):
                 a = +1 if i > 0 else -1
                 while i != 0:
                     ret += rd(**{attr[1:]: a})
-                    while ret.weekday() in (5, 6) or ret in self.holidays:
+                    while ret.weekday() in self.WEEKDAYS or ret in self.holidays:
                         ret += rd(days=a)
                     while attr != "bdays" and \
                             (ret.time() < self.btstart or
@@ -160,7 +160,7 @@ class relativedelta(rd):
         if getattr(self, 'bdays', None) is not None:
             other = parse(other)
             if self.bdays == 0:
-                while other.weekday() in (5, 6) or other in self.holidays:
+                while other.weekday() in self.WEEKDAYS or other in self.holidays:
                     other += rd(days=-1)
         return self.__neg__().__radd__(other)
 
