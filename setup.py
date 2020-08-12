@@ -17,16 +17,16 @@ except ImportError:
 
 setup(
     name='bdateutil',
-    version='0.2-dev',
-    author='ryanss',
-    author_email='ryanssdev@icloud.com',
-    url='https://github.com/ryanss/bdateutil',
+    version='0.2',
+    author='Lens MBINA',
+    author_email='l.mbina@siea.fr',
+    url='https://github.com/LensHunnel/bdateutil',
     license='MIT',
     packages=['bdateutil'],
     description=("Adds business day logic and improved data type flexibility "
                  "to python-dateutil."),
     long_description=open('README.rst').read(),
-    install_requires=['python-dateutil==2.2', 'holidays>=0.3.1'],
+    install_requires=['python-dateutil==2.4', 'holidays>=0.3.1'],
     platforms='any',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -42,6 +42,8 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Office/Business :: Scheduling',
         'Topic :: Software Development :: Libraries :: Python Modules',
